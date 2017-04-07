@@ -14,4 +14,5 @@ RUN \
 COPY entrypoint.sh /bin/entrypoint.sh
 RUN chmod +x /bin/entrypoint.sh
 
+VOLUME ["/handlers"]
 ENTRYPOINT ["/bin/entrypoint.sh"]
