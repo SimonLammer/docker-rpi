@@ -9,3 +9,12 @@ docker start test
 docker kill test
 echo "=============================="
 docker logs -t test
+log=$(docker logs test)
+expected=$(echo -e "Hello World\nterm_handler\nHello World")
+if [[ $log == $expected ]] ; then
+	echo "Tests succeeded"
+	exit 0;
+else
+	echo "Tests failed"
+	exit 1;
+fi
