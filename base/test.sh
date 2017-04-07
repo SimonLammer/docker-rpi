@@ -3,6 +3,8 @@ set -x
 docker build -t simonlammer/rpi-base .
 docker rm -f test
 docker run --name test -v $(pwd)/handlers:/handlers -d simonlammer/rpi-base
+docker kill --signal="SIGUSR1" test
+docker kill --signal="SIGUSR2" test
 docker stop test
 sleep 1
 docker start test
@@ -10,7 +12,7 @@ docker kill test
 echo "=============================="
 docker logs -t test
 log=$(docker logs test)
-expected=$(echo -e "start\nstop\nstart")
+expected=$(echo -e "start\nusr1\nusr2\nstop\nstart")
 if [[ $log == $expected ]] ; then
 	echo "Tests succeeded"
 	exit 0;
