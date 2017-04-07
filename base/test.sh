@@ -10,7 +10,7 @@ docker kill test
 echo "=============================="
 docker logs -t test
 log=$(docker logs test)
-expected=$(echo -e "Hello World\nterm_handler\nHello World")
+expected=$(echo -e "start\nstop\nstart")
 if [[ $log == $expected ]] ; then
 	echo "Tests succeeded"
 	exit 0;

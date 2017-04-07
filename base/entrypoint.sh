@@ -6,14 +6,14 @@ start() {
 	fi
 }
 
-term_handler() {
+stop() {
 	if [ -f /handlers/stop.sh ]; then
 		/handlers/stop.sh
 	fi
 	exit 143
 }
 
-trap 'term_handler' SIGTERM
+trap 'stop' SIGTERM
 
 start
 

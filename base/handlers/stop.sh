@@ -1,1 +1,1 @@
-echo "term_handler"
+echo "stop"
