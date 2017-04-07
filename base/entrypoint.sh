@@ -1,13 +1,21 @@
 #!/bin/bash
 
-term_handler() {
-	echo "term_handler"
-	exit 143;
+start() {
+	if [ -f /handlers/start.sh ]; then
+		/handlers/start.sh
+	fi
 }
 
-trap 'term_handler' SIGTERM
+stop() {
+	if [ -f /handlers/stop.sh ]; then
+		/handlers/stop.sh
+	fi
+	exit 143
+}
 
-echo "Hello World"
+trap 'stop' SIGTERM
+
+start
 
 while true
 do

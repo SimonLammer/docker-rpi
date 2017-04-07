@@ -2,10 +2,19 @@
 set -x
 docker build -t simonlammer/rpi-base .
 docker rm -f test
-docker run --name test -d simonlammer/rpi-base
+docker run --name test -v $(pwd)/handlers:/handlers -d simonlammer/rpi-base
 docker stop test
 sleep 1
 docker start test
 docker kill test
 echo "=============================="
 docker logs -t test
+log=$(docker logs test)
+expected=$(echo -e "start\nstop\nstart")
+if [[ $log == $expected ]] ; then
+	echo "Tests succeeded"
+	exit 0;
+else
+	echo "Tests failed"
+	exit 1;
+fi
