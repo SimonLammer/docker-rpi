@@ -7,7 +7,7 @@ IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)$(I)
 help:
 	@echo "Usage:"
 	@echo "    make [build | push] I=<image>"
-	@echo "    make [help | clear-images]"
+	@echo "    make help"
 
 check-image:
 	@if [ $(I) = "none" ]; then \
@@ -28,6 +28,3 @@ build: check-image
 push: build
 	docker login
 	docker push $(IMAGE)
-
-clear-images:
-	./clear_images.sh
