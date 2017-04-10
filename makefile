@@ -3,6 +3,7 @@ IMAGE_PREFIX=rpi-
 
 I=none
 IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)$(I)
+CURDIR_ESCAPED=$(shell echo '$(CURDIR)' | sed 's/\//\\\//g')
 
 help:
 	@echo "Usage:"
@@ -30,4 +31,4 @@ push: build
 	docker push $(IMAGE)
 
 run: build
-	docker run --name test -v $(CURDIR)/$(I)/handlers:/handlers -d $(IMAGE)
+	docker run --name test $(shell ls -d $(I)/*/ | sed -E 's/^(.*)\/(.*)\/$$/-v $(CURDIR_ESCAPED)\/\1\/\2:\/\2/') -d $(IMAGE)
