@@ -1,8 +1,9 @@
 #!/bin/bash
 set -x
-docker build -t simonlammer/rpi-base .
+image=$(pwd | sed -E 's/.*\/(.*)$/\1/')
+cd ..
 docker rm -f test
-docker run --name test -v $(pwd)/handlers:/handlers -d simonlammer/rpi-base
+make run I=$image
 docker kill --signal="SIGUSR1" test
 docker kill --signal="SIGUSR2" test
 docker stop test
