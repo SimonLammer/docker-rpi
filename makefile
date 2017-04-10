@@ -6,7 +6,7 @@ IMAGE=$(NAMESPACE)/$(IMAGE_PREFIX)$(I)
 
 help:
 	@echo "Usage:"
-	@echo "    make [build | push] I=<image>"
+	@echo "    make [build | push | run] I=<image>"
 	@echo "    make help"
 
 check-image:
@@ -28,3 +28,6 @@ build: check-image
 push: build
 	docker login
 	docker push $(IMAGE)
+
+run: build
+	docker run --name test -v $(CURDIR)/$(I)/handlers:/handlers -d $(IMAGE)

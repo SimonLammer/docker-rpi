@@ -1,8 +1,8 @@
 #!/bin/bash
 set -x
-docker rm -f test
 image=$(pwd | sed -E 's/.*\/(.*)$/\1/')
 cd ..
+docker rm -f test
 make run I=$image
 docker kill --signal="SIGUSR1" test
 docker kill --signal="SIGUSR2" test
