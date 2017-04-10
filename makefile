@@ -30,4 +30,4 @@ push: build
 	docker push $(IMAGE)
 
 clear-images:
-	@echo "clear-images"
+	./clear_images.sh
